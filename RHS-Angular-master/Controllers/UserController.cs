@@ -27,4 +27,27 @@ public class UserController : ControllerBase
 
         return Ok("User registered successfully.");
     }
+    public class LoginModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginModel loginModel)
+    {
+        var user = _dbContext.Users.FirstOrDefault(u => u.Email == loginModel.Email);
+
+        if (user == null)
+        {
+            return NotFound("User with this email does not exist.");
+        }
+
+        if (user.Password != loginModel.Password)
+        {
+            return Unauthorized("Invalid password.");
+        }
+
+        return Ok(new { message = "Login successful" });
+    }
+
 }

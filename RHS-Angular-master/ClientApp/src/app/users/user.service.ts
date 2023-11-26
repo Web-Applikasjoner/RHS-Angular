@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +32,20 @@ export class UserService {
     return this.user;
   }
 
-  login(credentials: { email: string, password: string }): Observable<any> {
+  login(credentials: { Email: string, Password: string }): Observable<any> {
     const loginUrl = `${this.baseUrl}/login`;
-    return this.http.post(loginUrl, credentials);
+    return this.http.post(loginUrl, credentials)
+      .pipe(
+        tap((response: any) => {
+          console.log('Login response:', response);
+          if (response && response.message === 'Login successful' && response.user) {
+            this.setUser(response.user);
+          }
+        })
+      );
   }
+
+
   logout(): void {
     this.user = null;
     this.userChanged.emit(this.user);
