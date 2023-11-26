@@ -12,7 +12,7 @@ import { ConvertToCurrency } from './shared/convert-to-currency.pipe';
 import { ItemformComponent } from './items/itemform.component';
 import { RegisterComponent } from './users/register.component';  
 import { LoginComponent } from './users/login.component';
-
+import { ItemDetailComponent } from './items/item-details.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { LoginComponent } from './users/login.component';
     ConvertToCurrency,
     ItemformComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ItemDetailComponent
     
   ],
   imports: [
@@ -36,6 +37,7 @@ import { LoginComponent } from './users/login.component';
       { path: 'items', component: ItemsComponent },
       { path: 'itemform', component: ItemformComponent },
       { path: 'itemform/:mode/:id', component: ItemformComponent },
+      { path: 'item-details/:id', component: ItemDetailComponent },
       { path: 'users/register', component: RegisterComponent },
       { path: 'users/login', component: LoginComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },

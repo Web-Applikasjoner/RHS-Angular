@@ -47,7 +47,7 @@ public class UserController : ControllerBase
             return Unauthorized("Invalid password.");
         }
 
-        return Ok(new { message = "Login successful" });
+        return Ok(new { message = "Login successful", user });
     }
 
 }

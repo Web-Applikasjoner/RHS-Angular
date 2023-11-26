@@ -12,43 +12,75 @@
     <h4>Filterd by: {{listFilter}}</h4>
   </div>
 </div>
-<table class='table table-striped' aria-labelledby="tableLabel">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Category</th>
-      <th>Location</th>
-      <th>Rooms</th>
-      <th>Area</th>
-      <th>Renting</th>
-      <th>Description</th>
-      <th width="180">
-        <button class='btn btn-outline-success'
-                (click)='toggleImage()'>
-          {{ displayImage ? 'Hide' : 'Show' }} Image
-        </button>
-      </th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let item of filteredItems'>
-      <td>{{ item.ItemId }}</td>
-      <td>{{ item.Category }}</td>
-      <td>{{ item.Location }}</td>
-      <td>{{ item.Rooms }}</td>
-      <td>{{ item.Area }}</td>
-      <td width="100">{{ item.Renting | convertToCurrency: 'kr.'}}</td>
-      <td>{{ item.Description }}</td>
-      <td *ngIf="displayImage"><img [src]=item.ImageUrl width="80" /></td>
-      <td>
-        <a [routerLink]="['/itemform','edit', item.ItemId]" class="btn btn-primary">Update</a>
-        <a class="btn btn-danger" (click)="deleteItem(item)">Delete</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<button class="btn btn-outline-primary" [routerLink]="['/itemform', 'create', -1]">Create New Item</button>
-<!--<button class="btn btn-outline-primary" (click)="navigateToItemform()">Create New Item</button>-->
-<!--<button class='btn btn-secondary' routerLink="/itemform">Create New Item</button>-->
+<div class="mb-3">
+  <button class="btn btn-outline-primary" (click)="toggleView()">
+    {{ isGridView ? 'Switch to Table View' : 'Switch to Grid View' }}
+  </button>
+</div>
+<!-- Grid View -->
+<div *ngIf="isGridView">
+  <div class="row">
+    <div *ngFor='let item of filteredItems' class="col-md-4 mb-4">
+      <div class="card h-100 bg-light card-animation" style="border-radius: 5%">
+        <a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">
+          <div style="position: relative; overflow: hidden; height: 200px;">
+            <img [src]="item.ImageUrl" class="card-img-top" aria-hidden="true" [alt]="item.Category" style="position: absolute; object-fit: cover; height: 100%; width: 100%; border-radius: 5%">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ item.Category }}</h5>
+            <div class="d-flex justify-content-between">
+              <p class="card-text">{{ item.Location}}</p>
+              <p class="card-text">{{ item.Renting | currency: 'NOK': 'symbol' }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Table View -->
+<div *ngIf="!isGridView">
+  <table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th>Rooms</th>
+        <th>Area</th>
+        <th>Renting</th>
+        <th>Description</th>
+        <th width="180">
+          <button class='btn btn-outline-success'
+                  (click)='toggleImage()'>
+            {{ displayImage ? 'Hide' : 'Show' }} Image
+          </button>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let item of filteredItems'>
+        <td>{{ item.ItemId }}</td>
+        <td>{{ item.Category }}</td>
+        <td>{{ item.Location }}</td>
+        <td>{{ item.Rooms }}</td>
+        <td>{{ item.Area }}</td>
+        <td width="100">{{ item.Renting | convertToCurrency: 'kr.'}}</td>
+        <td>{{ item.Description }}</td>
+        <td *ngIf="displayImage"><img [src]=item.ImageUrl width="80" /></td>
+        <td>
+          <a [routerLink]="['/itemform','edit', item.ItemId]" class="btn btn-primary">Update</a>
+          <a class="btn btn-danger" (click)="deleteItem(item)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div>
+  <button class="btn btn-outline-primary" [routerLink]="['/itemform', 'create', -1]">Create New Item</button>
+  <!--<button class="btn btn-outline-primary" (click)="navigateToItemform()">Create New Item</button>-->
+  <!--<button class='btn btn-secondary' routerLink="/itemform">Create New Item</button>-->
+</div>
 <!--<app-items-itemform></app-items-itemform>-->

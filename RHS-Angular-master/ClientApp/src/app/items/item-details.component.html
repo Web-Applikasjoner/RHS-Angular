@@ -1,0 +1,33 @@
+<!-- ======= Portfolio Details Section ======= -->
+<section id="portfolio-details" class="portfolio-details">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-7 h-auto">
+        <div class="active">
+          <img [src]="item.ImageUrl" class="img-fluid w-100" alt="...">
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="portfolio-info">
+          <h3>Item {{ item.ItemId }}</h3>
+          <ul>
+            <li><strong>Category</strong>: {{ item.Category }}</li>
+            <li><strong>Renting</strong>: {{ item.Renting | currency: 'NOK': 'symbol' }}</li>
+            <li><strong>House Location</strong>: {{ item.Location }}</li>
+          </ul>
+
+          <div>
+            <p><a [routerLink]="['/items']">Back to all houses</a></p>
+            <p>
+              <a [routerLink]="['/itemform', 'edit', item.ItemId]" class="btn btn-outline-success">Update</a>             
+
+            </p>
+          </div>
+
+          <h3>Description</h3>
+          <div class="row gx-5"><h5>{{ item.Description }}</h5></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

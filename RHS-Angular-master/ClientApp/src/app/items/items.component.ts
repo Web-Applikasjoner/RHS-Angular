@@ -79,4 +79,10 @@ export class ItemsComponent implements OnInit {
   ngOnInit(): void{
     this.getItems();
   }
+
+  isGridView: boolean = true;
+
+  toggleView() {
+    this.isGridView = !this.isGridView;
+  }
 }
