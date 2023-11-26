@@ -1,0 +1,47 @@
+<!-- header.component.html -->
+
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">RHS_Angular</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/items']">Houses</a>
+          </li>
+          <ng-container *ngIf="!userName">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/users/register']">Register</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/users/login']">Login</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="userName">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" (click)='logout()' style="cursor: pointer;">Logout</a>
+            </li>
+          </ng-container>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <span *ngIf="userName" class="nav-link text-dark ml-3">Hello {{ userName }}!</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

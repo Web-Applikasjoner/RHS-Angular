@@ -1,0 +1,54 @@
+
+<h1 id="tableLable">List of Houses ({{viewTitle}})</h1>
+<button class=" btn btn-outline-primary" (click)="getItems()">Get Items</button>
+<div class="row">
+  <div class="col-md-2">Filter by: </div>
+  <div class="col-md-4">
+    <input placeholder="Category or Location" type="text" [(ngModel)]="listFilter" />
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Filterd by: {{listFilter}}</h4>
+  </div>
+</div>
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Category</th>
+      <th>Location</th>
+      <th>Rooms</th>
+      <th>Area</th>
+      <th>Renting</th>
+      <th>Description</th>
+      <th width="180">
+        <button class='btn btn-outline-success'
+                (click)='toggleImage()'>
+          {{ displayImage ? 'Hide' : 'Show' }} Image
+        </button>
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let item of filteredItems'>
+      <td>{{ item.ItemId }}</td>
+      <td>{{ item.Category }}</td>
+      <td>{{ item.Location }}</td>
+      <td>{{ item.Rooms }}</td>
+      <td>{{ item.Area }}</td>
+      <td width="100">{{ item.Renting | convertToCurrency: 'kr.'}}</td>
+      <td>{{ item.Description }}</td>
+      <td *ngIf="displayImage"><img [src]=item.ImageUrl width="80" /></td>
+      <td>
+        <a [routerLink]="['/itemform','edit', item.ItemId]" class="btn btn-primary">Update</a>
+        <a class="btn btn-danger" (click)="deleteItem(item)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-outline-primary" [routerLink]="['/itemform', 'create', -1]">Create New Item</button>
+<!--<button class="btn btn-outline-primary" (click)="navigateToItemform()">Create New Item</button>-->
+<!--<button class='btn btn-secondary' routerLink="/itemform">Create New Item</button>-->
+<!--<app-items-itemform></app-items-itemform>-->
