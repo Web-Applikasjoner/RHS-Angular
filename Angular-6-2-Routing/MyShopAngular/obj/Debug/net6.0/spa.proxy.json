@@ -1,8 +1,0 @@
-{
-"SpaProxyServer": {
-"ServerUrl": "http://localhost:44479",
-"LaunchCommand": "npm start",
-"WorkingDirectory": "C:\\Users\\47925\\Downloads\\Angular-6-2-Routing\\MyShopAngular\\ClientApp\\",
-"MaxTimeoutInSeconds": "120"
-}
-}
