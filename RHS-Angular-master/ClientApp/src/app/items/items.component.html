@@ -62,16 +62,16 @@
     </thead>
     <tbody>
       <tr *ngFor='let item of filteredItems'>
-        <td>{{ item.ItemId }}</td>
-        <td>{{ item.Category }}</td>
-        <td>{{ item.Location }}</td>
-        <td>{{ item.Rooms }}</td>
-        <td>{{ item.Area }}</td>
-        <td width="100">{{ item.Renting | convertToCurrency: 'kr.'}}</td>
-        <td>{{ item.Description }}</td>
-        <td *ngIf="displayImage"><img [src]=item.ImageUrl width="80" /></td>
+        <td><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">{{ item.ItemId }}</a></td>
+        <td><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">{{ item.Category }}</a></td>
+        <td><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">{{ item.Location }}</a></td>
+        <td><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">{{ item.Rooms }}</a></td>
+        <td><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">{{ item.Area }}</a></td>
+        <td width="100"><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">{{ item.Renting | convertToCurrency: 'kr.'}}</a></td>
+        <td><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark">{{ item.Description }}</a></td>
+        <td *ngIf="displayImage"><a [routerLink]="['/item-details', item.ItemId]" class="text-decoration-none text-dark"><img [src]=item.ImageUrl width="80" /></a></td>
         <td>
-          <a [routerLink]="['/itemform','edit', item.ItemId]" class="btn btn-primary">Update</a>
+          <a (click)="onUpdateClick(item)" class="btn btn-primary">Update</a>
           <a class="btn btn-danger" (click)="deleteItem(item)">Delete</a>
         </td>
       </tr>

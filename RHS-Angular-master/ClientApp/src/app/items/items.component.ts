@@ -13,7 +13,7 @@ import { AuthService } from '../shared/auth.service';
 })
 
 export class ItemsComponent implements OnInit {
-  viewTitle: string = 'Table';
+  viewTitle: string = 'Grid';
   displayImage: boolean = true;
   items: IItem[] = [];
   //constructor(private _http: HttpClient, private _router:Router) { }
@@ -46,19 +46,45 @@ export class ItemsComponent implements OnInit {
       this.filteredItems = this.items;
     });*/
   deleteItem(item: IItem): void {
-    const confirmDelete = confirm(`Are you sure you want to delete the "${item.Category}"?`);
-    if (confirmDelete) {
-      this._itemService.deleteItem(item.ItemId).subscribe(
-        (response) => {
-          if (response.success) {
-            console.log(response.message);
-            this.filteredItems = this.filteredItems.filter(i => i !== item);
+    if (this.canDeleteItem(item)) {
+      const confirmDelete = confirm(`Are you sure you want to delete the "${item.Category}"?`);
+      if (confirmDelete) {
+        this._itemService.deleteItem(item.ItemId).subscribe(
+          (response) => {
+            if (response.success) {
+              console.log(response.message);
+              this.filteredItems = this.filteredItems.filter(i => i !== item);
+            }
+          },
+          (error) => {
+            console.error('Error deleting item:', error);
           }
-        },
-        (error) => {
-          console.error('Error deletig item:', error);
-        }
-      )
+        );
+      }
+    } else {
+      alert('You do not have permission to delete this item.');
+    }
+  }
+
+  canUpdateItem(item: IItem): boolean {
+    if (this.authService.isAuthenticated() && this.authService.isAdmin()) {
+      return true;
+    } else {      
+      return false;
+    }
+  }
+  onUpdateClick(item: IItem): void {
+    if (this.canUpdateItem(item)) {
+      this._router.navigate(['/itemform', 'edit', item.ItemId]);
+    } else {
+      alert('You do not have permission to update this item.');
+    }
+  }
+  canDeleteItem(item: IItem): boolean {
+    if (this.authService.isAuthenticated() && this.authService.isAdmin()) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -96,5 +122,6 @@ export class ItemsComponent implements OnInit {
 
   toggleView() {
     this.isGridView = !this.isGridView;
+    this.viewTitle = this.isGridView ? 'Grid' : 'Table';
   }
 }

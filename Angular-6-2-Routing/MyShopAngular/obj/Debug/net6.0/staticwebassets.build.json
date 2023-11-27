@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "dCQbooho3/RCcuKJlULCRQeP/1iQfafA2TRx+rBuU0c=",
+  "Source": "MyShopAngular",
+  "BasePath": "_content/MyShopAngular",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MyShopAngular\\wwwroot",
+      "Source": "MyShopAngular",
+      "ContentRoot": "C:\\Users\\47925\\Downloads\\Angular-6-2-Routing\\MyShopAngular\\wwwroot\\",
+      "BasePath": "_content/MyShopAngular",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\47925\\Downloads\\Angular-6-2-Routing\\MyShopAngular\\wwwroot\\favicon.ico",
+      "SourceId": "MyShopAngular",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\47925\\Downloads\\Angular-6-2-Routing\\MyShopAngular\\wwwroot\\",
+      "BasePath": "_content/MyShopAngular",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
+    }
+  ]
+}

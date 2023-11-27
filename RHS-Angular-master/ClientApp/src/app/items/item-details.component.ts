@@ -1,7 +1,10 @@
 // item-detail.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { itemService } from './items.service'; // Corrected import statement
+import { itemService } from './items.service'; 
+import { IItem } from './item';
+import { AuthService } from '../shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-detail',
@@ -10,7 +13,12 @@ import { itemService } from './items.service'; // Corrected import statement
 export class ItemDetailComponent implements OnInit {
   item: any;
 
-  constructor(private route: ActivatedRoute, private itemService: itemService) { }
+  constructor(
+    private _router: Router,
+    private route: ActivatedRoute,
+    private itemService: itemService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -19,5 +27,19 @@ export class ItemDetailComponent implements OnInit {
         this.item = item;
       });
     });
+  }
+  canUpdateItem(item: IItem): boolean {
+    if (this.authService.isAuthenticated() && this.authService.isAdmin()) {
+      return true;
+    } else {      
+      return false;
+    }
+  }
+  onUpdateClick(item: IItem): void {
+    if (this.canUpdateItem(item)) {
+      this._router.navigate(['/itemform', 'edit', item.ItemId]);
+    } else {
+      alert('You do not have permission to update this item.');
+    }
   }
 }

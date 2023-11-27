@@ -14,12 +14,14 @@
             <li><strong>Category</strong>: {{ item.Category }}</li>
             <li><strong>Renting</strong>: {{ item.Renting | currency: 'NOK': 'symbol' }}</li>
             <li><strong>House Location</strong>: {{ item.Location }}</li>
+            <li><strong>Rooms</strong>: {{ item.Rooms }}</li>
+            <li><strong>Area</strong>: {{ item.Area }}</li>
           </ul>
 
           <div>
             <p><a [routerLink]="['/items']">Back to all houses</a></p>
             <p>
-              <a [routerLink]="['/itemform', 'edit', item.ItemId]" class="btn btn-outline-success">Update</a>             
+              <a (click)="onUpdateClick(item)" class="btn btn-primary">Update</a>     
 
             </p>
           </div>
