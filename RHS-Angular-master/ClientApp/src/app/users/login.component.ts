@@ -18,7 +18,7 @@ export class LoginComponent {
 
     this.userService.login(this.credentials).subscribe({
       next: (response: any) => {
-        if (response && response.message === 'Login successful') {
+        if (response && response.message === 'Login successful' && response.user) {
           this.userService.setUser(response.user);
           this.router.navigateByUrl('/');
           alert('Login successful!');
@@ -28,10 +28,15 @@ export class LoginComponent {
         this.loading = false;
       },
       error: (error: any) => {
-        this.errorMessage = 'An unexpected error occurred';
-        console.error('An unexpected error occurred:', error);
+        if (error.status === 401) {
+          this.errorMessage = 'Invalid email or password.';
+        } else {
+          this.errorMessage = 'An unexpected error occurred';
+          console.error('An unexpected error occurred:', error);
+        }
         this.loading = false;
       },
     });
   }
+
 }

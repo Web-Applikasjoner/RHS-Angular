@@ -4,6 +4,7 @@ import { filter } from 'rxjs';
 //import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { itemService } from './items.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-items-component',
@@ -16,8 +17,11 @@ export class ItemsComponent implements OnInit {
   displayImage: boolean = true;
   items: IItem[] = [];
   //constructor(private _http: HttpClient, private _router:Router) { }
-  constructor(private _router: Router,
-    private _itemService: itemService) { }
+  constructor(
+    private _router: Router,
+    private _itemService: itemService,
+    private authService: AuthService
+  ) { }
   private _listFilter: string = '';
   get listFilter(): string {
     return this._listFilter;
@@ -26,6 +30,14 @@ export class ItemsComponent implements OnInit {
     this._listFilter = value;
     console.log('In setter:', value);
     this.filteredItems = this.performFilter(value);
+  }
+  createNewItem(): void {
+    if (this.authService.isAuthenticated()) {
+      this._router.navigate(['/itemform', 'create', -1]);
+    } else {
+      alert('You need to log in before creating a new item.');
+      this._router.navigate(['/users/login']);
+    }
   }
   /*getItems(): void {
     this._http.get<IItem[]>("api/item/").subscribe(data => {
@@ -53,13 +65,13 @@ export class ItemsComponent implements OnInit {
   getItems(): void {
     this._itemService.getItems()
       .subscribe(data => {
-      console.log('All', JSON.stringify(data));
-      this.items = data;
-      this.filteredItems = this.items;
-    });
+        console.log('All', JSON.stringify(data));
+        this.items = data;
+        this.filteredItems = this.items;
+      });
   }
 
- /* items: IItem[] = */
+  /* items: IItem[] = */
   filteredItems: IItem[] = this.items;
 
   performFilter(filterBy: string): IItem[] {
@@ -76,7 +88,7 @@ export class ItemsComponent implements OnInit {
   navigateToItemform() {
     this._router.navigate(['/itemform']);
   }
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.getItems();
   }
 
