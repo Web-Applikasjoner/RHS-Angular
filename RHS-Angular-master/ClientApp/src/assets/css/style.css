@@ -81,6 +81,7 @@ h6 {
   z-index: 9999;
   overflow: hidden;
   background: #151515;
+  margin-top:30px;
 }
 
 #preloader:before {
@@ -1359,6 +1360,7 @@ section {
   padding: 0 0 30px 0;
   color: #fff;
   font-size: 14px;
+  margin-top:30px;
 }
 
 #footer .footer-top {
