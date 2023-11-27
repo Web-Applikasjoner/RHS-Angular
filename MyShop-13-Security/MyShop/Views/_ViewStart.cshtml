@@ -1,9 +1,0 @@
-﻿@{
-    // Assuming you have a property like IsAdmin in your user model
-    bool isAdmin = User.IsInRole("Admin"); // You can replace this with your own logic
-
-    // Choose the appropriate layout based on the user's role
-    string layoutName = isAdmin ? "_AdminLayout" : "_UserLayout";
-
-    Layout = layoutName;
-}
