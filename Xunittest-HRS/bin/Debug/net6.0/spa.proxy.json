@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "http://localhost:44453",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\shath\\Source\\Repos\\Web-Applikasjoner\\RHS-Angular\\RHS-Angular-master\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

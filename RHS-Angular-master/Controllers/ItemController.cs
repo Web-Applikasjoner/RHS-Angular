@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RHS_Angular.DAL;
+using RHS_Angular.ViewModels;
 using RHS_Angular.Models;
 
 namespace RHS_Angular.Controllers;
@@ -52,7 +52,7 @@ public class ItemController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetItemById(int id)
     {
-        var item= await _itemRepository.GetItemById(id);
+        var item = await _itemRepository.GetItemById(id);
         if (item == null)
         {
             _logger.LogError("[ItemController] Item list not found while executing " +
@@ -62,13 +62,13 @@ public class ItemController : Controller
         return Ok(item);
     }
     [HttpPut("update/{id}")]
-    public async Task<IActionResult> Update( Item newItem)
+    public async Task<IActionResult> Update(Item newItem)
     {
         if (newItem == null)
         {
             return BadRequest("Invalid item data.");
         }
-        
+
         bool returnOk = await _itemRepository.Update(newItem);
 
         if (returnOk)
@@ -86,7 +86,7 @@ public class ItemController : Controller
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> DeleteItem(int id)
     {
-        bool returnOk = await _itemRepository.Delete(id);   
+        bool returnOk = await _itemRepository.Delete(id);
         if (returnOk)
         {
             _logger.LogError("[ItemController] Item deletion failed for the ItemId {ItemId: 0000}", id);
@@ -94,6 +94,11 @@ public class ItemController : Controller
         }
         var response = new { success = true, message = "Item" + id.ToString() + " deleted successfully" };
         return Ok(response);
+    }
+
+    public Task Table()
+    {
+        throw new NotImplementedException();
     }
 
     /*  private static int GetNextItemId()

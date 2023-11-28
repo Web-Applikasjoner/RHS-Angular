@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RHS_Angular.DAL;
+using RHS_Angular.ViewModels;
 using Serilog;
 using Serilog.Events;
 

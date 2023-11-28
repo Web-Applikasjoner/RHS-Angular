@@ -1,6 +1,6 @@
 ﻿using RHS_Angular.Models;
 
-namespace RHS_Angular.DAL
+namespace RHS_Angular.ViewModels
 {
     public static class DBInit
     {

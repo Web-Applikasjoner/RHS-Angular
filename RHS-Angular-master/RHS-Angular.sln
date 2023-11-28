@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RHS-Angular", "RHS-Angular.csproj", "{3434A621-53B4-419B-8B37-D0CE9B058738}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RHS-Angular", "RHS-Angular.csproj", "{3434A621-53B4-419B-8B37-D0CE9B058738}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xunittest-HRS", "..\Xunittest-HRS\Xunittest-HRS.csproj", "{4C2A079A-CA15-4710-A32E-D355073AAECC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3434A621-53B4-419B-8B37-D0CE9B058738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3434A621-53B4-419B-8B37-D0CE9B058738}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3434A621-53B4-419B-8B37-D0CE9B058738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C2A079A-CA15-4710-A32E-D355073AAECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C2A079A-CA15-4710-A32E-D355073AAECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C2A079A-CA15-4710-A32E-D355073AAECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C2A079A-CA15-4710-A32E-D355073AAECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

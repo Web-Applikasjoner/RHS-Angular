@@ -62,7 +62,8 @@ export class ItemsComponent implements OnInit {
         );
       }
     } else {
-      alert('You do not have permission to delete this item.');
+      confirm('You do not have permission to delete this item. \n Are you the admin?');
+      this._router.navigate(['/users/login']);
     }
   }
 
@@ -77,7 +78,8 @@ export class ItemsComponent implements OnInit {
     if (this.canUpdateItem(item)) {
       this._router.navigate(['/itemform', 'edit', item.ItemId]);
     } else {
-      alert('You do not have permission to update this item.');
+      confirm('You do not have permission to update this item. \n Are you the admin?');
+      this._router.navigate(['/users/login']);
     }
   }
   canDeleteItem(item: IItem): boolean {

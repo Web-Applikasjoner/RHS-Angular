@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RHS_Angular.DAL;
+using RHS_Angular.ViewModels;
 using RHS_Angular.Models;
 
 [ApiController]

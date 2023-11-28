@@ -40,11 +40,11 @@
           </div>
         </div>
         <div>
-          <button [disabled]="loading || registerForm.invalid" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+          <button [disabled]="loading || registerForm.invalid" class="btn btn-primary ">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1 "></span>
             Register
           </button>
-          <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button class="btn btn-secondary ml-2" (click)="cancel()">Cancel</button>
           <div *ngIf="registrationError" class="alert alert-danger">
             {{ registrationError }}
           </div>
