@@ -1,44 +1,108 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
+//using RHS_Angular.DAL;
 using RHS_Angular.Controllers;
 using RHS_Angular.Models;
-using Microsoft.AspNetCore.Mvc;
 using RHS_Angular.ViewModels;
+using Xunit;
 
-
-namespace Xunittest_HRS.Controllers
+public class IItemControllerTest
 {
-    public class ItemControllerTests
-    {
         [Fact]
-        public async Task TestGetItemById()
+    public async Task GetAll_ReturnsOkResult()
         {
             // Arrange
-            var itemId = 1;
-            var mockItemRepository = new Mock<IItemRepository>();
-            var mockLogger = new Mock<ILogger<ItemController>>();
-
-            var itemController = new ItemController(mockItemRepository.Object, mockLogger.Object);
-
-            var mockItem = new Item
+        var itemList = new List<Item>()
+        {
+            new Item
             {
-                ItemId = itemId,
-                Category = "Fried Chicken Wing",
-                Renting = 20,
-                Description = "Delicious spicy chicken wing",
-                ImageUrl = "/images/chickenwing.jpg"
-            };
+                ItemId=1,
+                Category ="House",
+                Location = "Drammen",
+                Rooms = 6,
+                Area = 150,
+                Renting = 19000 ,
+                Description = "A new build house",
 
-            mockItemRepository.Setup(repo => repo.GetItemById(itemId)).ReturnsAsync(mockItem);
+
+             },
+
+             new Item
+            {
+                ItemId = 2,
+                Category ="House",
+                Location = "Drammen",
+                Rooms = 6,
+                Area = 160,
+                Renting = 17500 ,
+                Description = "A new build house",
+
+
+             }
+
+
+            };
+        var itemRepositoryMock = new Mock<IItemRepository>();
+        itemRepositoryMock.Setup(repo => repo.GetAll()).ReturnsAsync(itemList);
+
+
+        var loggerMock = new Mock<ILogger<ItemController>>();
+
+        var itemController = new ItemController(itemRepositoryMock.Object, loggerMock.Object);
+
+
 
             // Act
+        var result = await itemController.GetAll();
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        var items = Assert.IsType<List<Item>>(okResult.Value);
+        Assert.Equal(itemList.Count, items.Count);   // Compare the number of items
+        Assert.Equal(itemList, items);               // Compare the content of the lists
+
+    }
            
-            var result = await itemController.Create(mockItem);
+    [Fact]
+
+    public async Task TestCreateNotOk()
+    {
+        // Arrange
+        var testItem = new Item
+        {
+            ItemId = 2,
+            Location = "Drammen",
+            Rooms = 6,
+            Area = 150,
+            Renting = 1900,
+            Description = "A new build house",
+        };
+
+        var mockItemRepository = new Mock<IItemRepository>();
+        mockItemRepository.Setup(repo => repo.Create(testItem)).ReturnsAsync(false);
+
+        var mockLogger = new Mock<ILogger<ItemController>>();
+        var itemController = new ItemController(mockItemRepository.Object, mockLogger.Object);
+
+        // Act
+        var result = await itemController.Create(testItem);
 
             // Assert
-            var viewResult = Assert.IsType<OkObjectResult>(result);
-            var returnedItem = Assert.IsAssignableFrom<Item>(viewResult.Value);
-            Assert.Equal(itemId, returnedItem.ItemId);
-        }
-    }
+
+        var viewResult = Assert.IsType<BadRequestObjectResult>(result);
+        var viewItem = Assert.IsAssignableFrom<Item>(viewResult);
+       Assert.Equal(testItem, viewItem);
+
+
+}
+
+
+
+
+
+
 }
